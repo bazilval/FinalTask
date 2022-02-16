@@ -1,0 +1,49 @@
+﻿<Window x:Class="FinalTask.MainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinalTask"
+             mc:Ignorable="d" 
+                     SizeToContent="WidthAndHeight"
+             Topmost="True">
+    <StackPanel>
+        <Label Content="Выберите уровни для нумерации помещений:"
+               Margin="5"/>
+        <ListBox ItemsSource="{Binding Levels}"
+                 SelectionMode="Extended"
+                 DisplayMemberPath="Name"
+                 MaxHeight="200"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 Margin="5">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected"
+                            Value="{Binding IsSelected}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <RadioButton Content="Нумерация по этажам (с префиксом)"
+                     GroupName="Radio" 
+                     IsChecked="{Binding ByLevels}"
+                     Margin="5"/>
+        <RadioButton Content="Сквозная нумерация" 
+                     GroupName="Radio" 
+                     x:Name="radioBtn2"
+                     IsChecked="{Binding ThroughLevels}"
+                     Margin="5"/>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <Label Content="Начальный номер помещения:"/>
+            <TextBox Text="{Binding InitialNum}"
+                     IsEnabled="{Binding ElementName=radioBtn2, Path=IsChecked}"
+                     Width="50"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"/>
+        </StackPanel>
+        <Button Content="Выполнить" 
+                Command="{Binding NumberingCommand}"
+                Margin="5"
+                Padding="5"/>
+    </StackPanel>
+</Window>
